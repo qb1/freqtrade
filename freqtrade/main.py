@@ -144,7 +144,12 @@ def handle_trade(trade: Trade) -> bool:
     logger.debug('Handling %s ...', trade)
     current_rate = exchange.get_ticker(trade.pair)['bid']
     if should_sell(trade, current_rate, datetime.utcnow()):
-        execute_sell(trade, current_rate)
+        if trade.open_order_id:
+            logger.info('Trying to sell %s while order still open. Cancelling', trade)
+            exchange.cancel(trade.open_order_id)
+            trade.cancel()
+        else:
+            execute_sell(trade, current_rate)
         return True
     return False
 
