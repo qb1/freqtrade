@@ -88,16 +88,6 @@ class Trade(_DECL_BASE):
         self.is_open = False
         self.open_order_id = None
 
-
-    def cancel(self):
-        logger.debug('Canceling trade (id={}), user should check order status {}...'.format(
-            self.id,
-            self.open_order_id))
-        self.open_order_id = None
-        self.close_profit = 0.0
-        self.close_rate = self.open_rate
-        self.is_open = False
-
     def update(self, order: Dict) -> None:
         """
         Updates this entity with amount and actual open/close rates.
