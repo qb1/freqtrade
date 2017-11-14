@@ -82,6 +82,17 @@ class Trade(_DECL_BASE):
         logger.debug('Canceling trade (id={}), user should check order status {}...'.format(
             self.id,
             self.open_order_id))
+        self.close_profit = 0.0
+        self.close_rate = self.open_rate
+        self.close_date = datetime.utcnow()
+        self.is_open = False
+        self.open_order_id = None
+
+
+    def cancel(self):
+        logger.debug('Canceling trade (id={}), user should check order status {}...'.format(
+            self.id,
+            self.open_order_id))
         self.open_order_id = None
         self.close_profit = 0.0
         self.close_rate = self.open_rate

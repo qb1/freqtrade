@@ -22,8 +22,11 @@ Persistence is achieved through sqlite.
 * /status [table]: Lists all open trades
 * /count: Displays number of open trades
 * /profit: Lists cumulative profit from all finished trades
-* /forcesell <trade_id>: Instantly sells the given trade (Ignoring `minimum_roi`).
+* /forcesell <trade_id>|all: Instantly sells the given trade (Ignoring `minimum_roi`).
 * /performance: Show performance of each finished trade grouped by pair
+* /balance: Show account balance per currency
+* /help: Show help message
+* /version: Show version
 
 ### Config
 `minimal_roi` is a JSON object where the key is a duration
@@ -112,14 +115,14 @@ filesystem):
 
 ```
 $ cd ~/.freq
-$ touch tradesv2.sqlite
+$ touch tradesv3.sqlite
 $ docker run -d \
   --name freqtrade \
   -v ~/.freq/config.json:/freqtrade/config.json \
-  -v ~/.freq/tradesv2.sqlite:/freqtrade/tradesv2.sqlite \
+  -v ~/.freq/tradesv3.sqlite:/freqtrade/tradesv3.sqlite \
   freqtrade
 ```
-If you are using `dry_run=True` you need to bind `tradesv2.dry_run.sqlite` instead of `tradesv2.sqlite`.
+If you are using `dry_run=True` it's not necessary to mount `tradesv3.sqlite`.
 
 You can then use the following commands to monitor and manage your container:
 
